@@ -15,9 +15,9 @@ const Home = () => {
       <div className="flex items-center justify-center h-screen">
         <div className="bg-indigo-800 text-white font-bold rounded-lg border shadow-lg p-10">
           <Switch>
-            <Route exact path="/dashboard/" component={() => <First />} />
-            <Route exact path="/dashboard/main" component={() => <Second />} />
-            <Route exact path="/dashboard/profile/:user" component={() => <Third />} />
+            <Route exact path="/" component={() => <First />} />
+            <Route exact path="/:userName" component={() => <Second />} />
+            <Route exact path="/:userName/:repositoryName" component={() => <Third />} />
           </Switch>
         </div>
       </div>
