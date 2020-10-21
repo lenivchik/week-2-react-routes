@@ -5,14 +5,15 @@ import { Provider, connect } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-
 import store, { history } from '../redux'
 
 import Home from '../components/home'
 import DummyView from '../components/dummy-view'
+import Second from '../components/Second'
 import NotFound from '../components/404'
 
 import Startup from './startup'
+import Third from '../components/Third'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
   const func = (props) =>
@@ -76,6 +77,9 @@ const PrivateRouteConnected = connect(mapStateToProps, mapDispatchToProps)(Priva
 const mapDispatchToPropsStartup = (dispatch) => bindActionCreators({}, dispatch)
 
 const StartupConnected = withRouter(connect(() => ({}), mapDispatchToPropsStartup)(Startup))
+
+
+
 export default (props) => {
   return (
     <Provider store={store}>
@@ -83,8 +87,8 @@ export default (props) => {
         <StartupConnected>
           <Switch>
             <Route exact path="/" component={() => <DummyView />} />
-            <Route exact path="/dashboard" component={() => <Home />} />
-            <Route exact path="/dashboard/profile/:user" component={() => <Home />} />
+            <Route exact path="/:userName" component={() => <Second />} />
+            <Route exact path="/:userName/:repositoryName" component={() => <Third />} />
             <Route exact path="/dashboard/main" component={() => <Home />} />
             <PrivateRouteConnected exact path="/hidden-route" component={() => <DummyView />} />
             <Route component={() => <NotFound />} />

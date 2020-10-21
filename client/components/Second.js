@@ -1,16 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom' 
-import Head from './head'
+import React, { useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom' 
+import axios from 'axios'
+import Header from './header'
+
+
+ const Writeobj = () => {
+  const {userName}=useParams()
+  const [reps, set] = React.useState([])
+  useEffect(()=>{
+    axios.get(`https://api.github.com/users/${userName}/repos`).then(it => it.data).then (it => {set(it)})
+  },[userName])
+return <div>{reps.map(it => <li key={it.id}><Link to={`/${userName}/${it.name}`}>{it.name}</Link></li>)}</div>
+}
 
 const Second = () => {
   return (
     <div>
-      <Head title="Hello" />
+      <Header head={useParams()} />
       <div className="flex items-center justify-center h-screen">
-        <div className="bg-indigo-800 text-white font-bold rounded-lg border shadow-lg p-10">
-          <div id="title">Main</div>
-          <div> <Link to="/dashboard/profile/880c92c6-3cf5-45bd-9160-7524a11ec7cb">Go To Profile</Link> </div>
-          <div><Link to="/dashboard">Go To Root</Link></div>
+        <div className="bg-indigo-800 text-black font-bold rounded-lg border shadow-lg p-10">
+          <Writeobj />
         </div>
       </div>
     </div>
@@ -20,3 +29,5 @@ const Second = () => {
 Second.propTypes = {}
 
 export default Second
+
+
