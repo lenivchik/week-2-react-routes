@@ -3,7 +3,7 @@ import { history } from '../redux'
 import Head from './head'
 
 const InputUserId  = (props) =>{
-  const [value, setValue] = React.useState('1') 
+  const [value, setValue] = React.useState('') 
   const onChange = (e) => {   
     const NewValue = e.target.value;
     setValue(NewValue)  
@@ -30,18 +30,26 @@ const InputButton = (props) => {
 }
 
 const Dummy = () => {
-  const [text, settext] = React.useState('1')
+  const [text, settext] = React.useState('')
 
   
   return (
     <div>
       <Head title="Hello" />
+      
       <div className="flex items-center justify-center h-screen">
-        <div className="bg-indigo-800 text-black font-bold rounded-lg border shadow-lg p-10"> 
-          <InputUserId onChange={settext} text={text} />
-          <InputButton text={text} />
-          This is dummy component {text}
-        </div>
+        <form className="bg-indigo-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              <InputUserId onChange={settext} text={text} />
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <button className="bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+              <InputButton text={text} />
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )
@@ -50,3 +58,4 @@ const Dummy = () => {
 Dummy.propTypes = {}
 
 export default Dummy
+
